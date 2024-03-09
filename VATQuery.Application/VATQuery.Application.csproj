@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\KookBotCraft.BotMarket\KookBotCraft.BotMarket.csproj" />
+    <ProjectReference Include="..\VATQuery.Core\KookBotCraft.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Models\Vatsim\Vatprc\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MetarParserCore" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+  </ItemGroup>
+
+</Project>
