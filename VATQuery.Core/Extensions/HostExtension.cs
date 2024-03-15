@@ -19,12 +19,13 @@ namespace KookBotCraft.Core.Extensions {
         public static IHostBuilder AddBotCraft(this IHostBuilder hostBuilder) {
             return hostBuilder
                 .UseContentRoot(AppContext.BaseDirectory)
-                .ConfigureAppConfiguration((builder) => {
+                .ConfigureAppConfiguration(builder => {
                     builder
 #if DEBUG
                         .AddJsonFile("appsettings.development.json")
 #endif
-                        .AddJsonFile("appsettings.json");
+                        .AddJsonFile("appsettings.json")
+                        .AddEnvironmentVariables();
                 })
                 .ConfigureServices((services) => {
                     services.AddOptions<KookOption>().BindConfiguration("Kook");
