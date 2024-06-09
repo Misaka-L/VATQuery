@@ -25,7 +25,7 @@ namespace VATQuery.Bot.Modules {
         [Command("metar")]
         public async Task GetMetar(string icao) {
             var result = await _vatsimService.GetMetarAsync(icao);
-            await ReplyCardsAsync(
+            await ReplyCardAsync(
                 new CardBuilder()
                     .WithTheme(CardTheme.None).WithSize(CardSize.Large)
                     .AddModule(new HeaderModuleBuilder().WithText(new PlainTextElementBuilder().WithContent($"{icao} 的 METAR 报告为")))
@@ -50,7 +50,7 @@ namespace VATQuery.Bot.Modules {
                 if (result.Count() != 0) {
                     await ReplyCardsAsync(new VatsimATCCardMessage(result.First()).Build());
                 } else {
-                    await ReplyKMarkdownAsync("Atis 不存在");
+                    await ReplyTextAsync("Atis 不存在");
                 }
             }
 
@@ -62,7 +62,7 @@ namespace VATQuery.Bot.Modules {
                 if (result.Count() != 0) {
                     await ReplyCardsAsync(new VatsimATCCardMessage(result.First()).Build());
                 } else {
-                    await ReplyKMarkdownAsync("Atis 不存在");
+                    await ReplyTextAsync("Atis 不存在");
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace VATQuery.Bot.Modules {
                 if (result.Count() != 0) {
                     await ReplyCardsAsync(new VatsimATCCardMessage(result.First()).Build());
                 } else {
-                    await ReplyKMarkdownAsync("ATC 不存在");
+                    await ReplyTextAsync("ATC 不存在");
                 }
             }
 
@@ -95,7 +95,7 @@ namespace VATQuery.Bot.Modules {
                 if (result.Count() != 0) {
                     await ReplyCardsAsync(new VatsimATCCardMessage(result.First()).Build());
                 } else {
-                    await ReplyKMarkdownAsync("ATC 不存在");
+                    await ReplyTextAsync("ATC 不存在");
                 }
             }
         }
@@ -126,7 +126,7 @@ namespace VATQuery.Bot.Modules {
                     //var mapUrl = await Context.Client.Rest.CreateAssetAsync(mapStream, "map.png");
                     await ReplyCardsAsync(new VatsimPilotCardMessage(pilot).Build(), true);
                 } else {
-                    await ReplyKMarkdownAsync("航班不存在");
+                    await ReplyTextAsync("航班不存在");
                 }
             }
 
@@ -145,7 +145,7 @@ namespace VATQuery.Bot.Modules {
                     //var mapUrl = await Context.Client.Rest.CreateAssetAsync(mapStream, "map.png");
                     await ReplyCardsAsync(new VatsimPilotCardMessage(pilot).Build(), true);
                 } else {
-                    await ReplyKMarkdownAsync("航班不存在");
+                    await ReplyTextAsync("航班不存在");
                 }
             }
 
@@ -164,7 +164,7 @@ namespace VATQuery.Bot.Modules {
                     //var mapUrl = await Context.Client.Rest.CreateAssetAsync(mapStream, "map.png");
                     await ReplyCardsAsync(new VatsimPilotCardMessage(pilot).Build(), true);
                 } else {
-                    await ReplyKMarkdownAsync("航班不存在");
+                    await ReplyTextAsync("航班不存在");
                 }
             }
         }

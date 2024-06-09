@@ -2,16 +2,11 @@
 using Kook.WebSocket;
 using KookBotCraft.Core.Helper;
 using KookBotCraft.Core.Options;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+using Kook;
 
 namespace KookBotCraft.Core.Services {
     public class CommandHandleHostService : IHostedService {
@@ -46,12 +41,12 @@ namespace KookBotCraft.Core.Services {
             return KookLoggerHelper.HandleLog(_logger, message);
         }
 
-        private async Task _socketClient_MessageReceived(SocketMessage arg) {
+        private async Task _socketClient_MessageReceived(SocketMessage arg, SocketUser socketUser, IChannel arg3) {
             if (arg is SocketUserMessage message && !message.Author.IsBot.GetValueOrDefault(true)) {
                 var argPos = 0;
 
                 if (message.HasStringPrefix(_kookOptions.Value.CommandPrefix, ref argPos) &&
-                    (!_kookOptions.Value.RequierMention | message.HasMentionPrefix(_socketClient.CurrentUser, ref argPos))) {
+                    (!_kookOptions.Value.RequierMention || message.HasMentionPrefix(_socketClient.CurrentUser, ref argPos))) {
 
                     var context = new SocketCommandContext(_socketClient, message);
                     await _commandService.ExecuteAsync(context, argPos, _serviceProvider);
@@ -60,8 +55,6 @@ namespace KookBotCraft.Core.Services {
         }
 
         public Task StopAsync(CancellationToken cancellationToken) {
-            _socketClient.DirectMessageReceived -= _socketClient_MessageReceived;
-            _socketClient.MessageReceived -= _socketClient_MessageReceived;
             _commandService.Log -= _commandService_Log;
 
             return Task.CompletedTask;
