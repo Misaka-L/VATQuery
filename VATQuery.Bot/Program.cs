@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 using VATQuery.Application.Options;
 using VATQuery.Application.Services;
 
-var host = new HostBuilder()
+var host = Host.CreateDefaultBuilder(args)
     .AddBotCraft()
     .AddBotMarket()
     .ConfigureServices(ConfigureServices)
