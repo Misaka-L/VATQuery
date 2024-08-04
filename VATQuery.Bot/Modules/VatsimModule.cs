@@ -43,6 +43,8 @@ namespace VATQuery.Bot.Modules {
             }
 
             [Command]
+            [Alias("cs", "callsign")]
+            [Priority(-1)]
             public async Task GetAtc(string callsign) {
                 var data = _vatsimService.GetVatsimData() is VatsimData vatsimData ? vatsimData : await _vatsimService.GetVatsimDataAsync();
 
@@ -76,6 +78,8 @@ namespace VATQuery.Bot.Modules {
             }
 
             [Command]
+            [Alias("cs", "callsign")]
+            [Priority(-1)]
             public async Task GetAtc(string callsign) {
                 var data = _vatsimService.GetVatsimData() is VatsimData vatsimData ? vatsimData : await _vatsimService.GetVatsimDataAsync();
 
@@ -111,7 +115,8 @@ namespace VATQuery.Bot.Modules {
             }
 
             [Command]
-            [Alias("cs")]
+            [Alias("cs", "callsign")]
+            [Priority(-1)]
             public async Task GetFlightByCallsign(string callsign) {
                 var data = _vatsimService.GetVatsimData() is VatsimData vatsimData ? vatsimData : await _vatsimService.GetVatsimDataAsync();
 
