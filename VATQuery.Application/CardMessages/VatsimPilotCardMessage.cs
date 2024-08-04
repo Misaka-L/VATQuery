@@ -6,18 +6,23 @@ using System.Text;
 using System.Threading.Tasks;
 using VATQuery.Application.Models.Vatsim;
 
-namespace VATQuery.Application.CardMessages {
-    public class VatsimPilotCardMessage {
+namespace VATQuery.Application.CardMessages
+{
+    public class VatsimPilotCardMessage
+    {
         public VatsimPilot Pilot;
         public string MapUrl;
 
-        public VatsimPilotCardMessage(VatsimPilot pilot, string mapUrl = "") {
+        public VatsimPilotCardMessage(VatsimPilot pilot, string mapUrl = "")
+        {
             Pilot = pilot;
             MapUrl = mapUrl;
         }
 
-        public Card[] Build() {
-            return new Card[] {
+        public Card[] Build()
+        {
+            return new Card[]
+            {
                 // 飞行员信息、航空器位置、飞行计划
                 new CardBuilder()
                     .WithTheme(CardTheme.Success).WithSize(CardSize.Large)
@@ -37,7 +42,10 @@ namespace VATQuery.Application.CardMessages {
                         .AddParagraphStructContentField("机型", Pilot.FlightPlan.AircraftShort)
                         .AddParagraphStructContentField("全名", Pilot.FlightPlan.Aircraft)
                         .AddParagraphStructContentField("FAA", Pilot.FlightPlan.AircraftFaa)))
-                    // FlightPlan
+                    .Build(),
+                // FlightPlan
+                new CardBuilder()
+                    .WithTheme(CardTheme.Info).WithSize(CardSize.Large)
                     .AddSmallTitle("飞行计划")
                     .AddModule(new SectionModuleBuilder().WithText(new ParagraphStructBuilder()
                         .WithColumnCount(3)
@@ -48,19 +56,22 @@ namespace VATQuery.Application.CardMessages {
                         .AddParagraphStructContentField("计划起飞", Pilot.FlightPlan.DepartureTime)
                         .AddParagraphStructContentField("计划巡航时长", Pilot.FlightPlan.Enroutetime)
                         .AddParagraphStructContentField("计划燃油时长", Pilot.FlightPlan.FuelTime)
-                        .AddParagraphStructContentField("分配应答机（非真实应答机）", Pilot.FlightPlan.AssignedTransponder)))
+                        .AddParagraphStructContentField("计划巡航空速", Pilot.FlightPlan.CruiseTas + "kt")
+                        .AddParagraphStructContentField("分配应答机", Pilot.FlightPlan.AssignedTransponder)))
                     .AddSmallTitle("航路")
-                    .AddModule(new SectionModuleBuilder().WithText(new KMarkdownElementBuilder().WithContent($"`{Pilot.FlightPlan.Route}`")))
+                    .AddModule(new SectionModuleBuilder().WithText(
+                        new KMarkdownElementBuilder().WithContent($"`{Pilot.FlightPlan.Route}`")))
                     .Build(),
                 new CardBuilder()
                     .WithTheme(CardTheme.Warning).WithSize(CardSize.Large)
                     .AddSmallTitle("飞行数据")
                     .AddModule(new SectionModuleBuilder().WithText(new ParagraphStructBuilder()
                         .WithColumnCount(3)
-                        .AddParagraphStructContentField("高度", Pilot.Altitude.ToString() + "ft")
+                        .AddParagraphStructContentField("高度", Pilot.Altitude + "ft")
                         .AddParagraphStructContentField("航向", Pilot.Heading.ToString())
-                        .AddParagraphStructContentField("地速", Pilot.Groundspeed.ToString() + "kt")
-                        .AddParagraphStructContentField("计划巡航空速", Pilot.FlightPlan.CruiseTas.ToString() + "kt")))
+                        .AddParagraphStructContentField("地速", Pilot.Groundspeed + "kt")
+                        .AddParagraphStructContentField("计划巡航空速", Pilot.FlightPlan.CruiseTas + "kt")
+                        .AddParagraphStructContentField("QNH", Pilot.Qnh + "mbar / " + Pilot.QnhHg + "inHg")))
                     .Build(),
                 new CardBuilder()
                     .WithTheme(CardTheme.Danger).WithSize(CardSize.Large)
