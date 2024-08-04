@@ -15,9 +15,8 @@ namespace KookBotCraft.Core.Extensions {
                 .UseContentRoot(AppContext.BaseDirectory)
                 .ConfigureAppConfiguration(builder =>
                 {
-                    builder
 #if DEBUG
-                        .AddJsonFile("appsettings.development.json");
+                        builder.AddJsonFile("appsettings.development.json");
 #endif
                 })
                 .ConfigureServices((services) => {
