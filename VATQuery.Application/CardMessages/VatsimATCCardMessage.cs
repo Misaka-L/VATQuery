@@ -19,7 +19,7 @@ namespace VATQuery.Application.CardMessages {
                 .WithTheme(CardTheme.Success).WithSize(CardSize.Large)
                 .AddSmallDescrption($"{ATC.Name} · {ATC.CID}")
                 .AddHeader(ATC.Callsign)
-                .AddSmallTitle($"更新于 UTC {ATC.LastUpdated:u} · 登录于 UTC {ATC.LogonTime:u}")
+                .AddSmallTitle($"更新于 UTC {ATC.LastUpdated:u} · 登录于 UTC {ATC.LogonTime:u} · 连接服务器 {ATC.Server}")
                 .AddDivider()
                 .AddSmallTitle("频率")
                 .AddHeader(ATC.Frequency)

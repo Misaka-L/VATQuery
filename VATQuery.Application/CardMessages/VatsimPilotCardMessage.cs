@@ -22,7 +22,7 @@ namespace VATQuery.Application.CardMessages {
                 new CardBuilder()
                     .WithTheme(CardTheme.Success).WithSize(CardSize.Large)
                     // 飞行员信息
-                    .AddSmallDescrption($"{Pilot.Name} · {Pilot.CID}")
+                    .AddSmallDescrption($"{Pilot.Name} · {Pilot.CID} · 连接服务器 {Pilot.Server}")
                     // Callsign
                     .AddHeader(Pilot.Callsign)
                     // Position
@@ -46,7 +46,9 @@ namespace VATQuery.Application.CardMessages {
                         .AddParagraphStructContentField("备降", Pilot.FlightPlan.Alternate)
                         .AddParagraphStructContentField("计划高度", Pilot.FlightPlan.Altitude)
                         .AddParagraphStructContentField("计划起飞", Pilot.FlightPlan.DepartureTime)
-                        .AddParagraphStructContentField("计划巡航时长", Pilot.FlightPlan.Enroutetime)))
+                        .AddParagraphStructContentField("计划巡航时长", Pilot.FlightPlan.Enroutetime)
+                        .AddParagraphStructContentField("计划燃油时长", Pilot.FlightPlan.FuelTime)
+                        .AddParagraphStructContentField("分配应答机（非真实应答机）", Pilot.FlightPlan.AssignedTransponder)))
                     .AddSmallTitle("航路")
                     .AddModule(new SectionModuleBuilder().WithText(new KMarkdownElementBuilder().WithContent($"`{Pilot.FlightPlan.Route}`")))
                     .Build(),
